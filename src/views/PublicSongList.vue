@@ -175,8 +175,8 @@ export default {
     randomFiveSongs() {
       for (let i = 0; i < 5; i++) {
         this.queryInfo.ids[i] = Math.ceil(Math.random() * this.totalSongNum)
-        this.getSongList()
       }
+      this.getSongList()
     },
     // 关闭对话框的函数
     loginDialogClosed() {
