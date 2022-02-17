@@ -3,7 +3,7 @@
     <el-card>
       <!--搜索与随机-->
       <el-row :gutter="20">
-        <el-col :span="8">
+        <el-col :span="6" :offset="6">
           <el-input placeholder="搜索歌曲名或歌手" v-model="queryInfo.nameOrArtist" @keydown.enter.native="getSongList">
             <el-button slot="append" icon="el-icon-search" @click="getSongList"></el-button>
           </el-input>
@@ -13,27 +13,40 @@
       </el-row>
 
       <!--表格信息-->
-      <el-table
-        :data="songList"
-        border
-        style="width: 100%"
-        @sort-change="sortTable"
-        v-loading="loading">
-        <el-table-column label="歌曲编号" prop="id" sortable="custom"></el-table-column>
-        <el-table-column label="歌名" prop="name" sortable="custom"></el-table-column>
-        <el-table-column label="歌手" prop="artist" sortable="custom"></el-table-column>
-        <el-table-column label="语言" prop="language" sortable="custom"></el-table-column>
-      </el-table>
-      <!--分页控件-->
-      <el-pagination
-        @size-change="handleSizeChange"
-        @current-change="handleCurrentChange"
-        :current-page="queryInfo.pageNum"
-        :page-sizes="[10, 15, 20]"
-        :page-size="queryInfo.pageSize"
-        layout="total, sizes, prev, pager, next, jumper"
-        :total="total">
-      </el-pagination>
+      <el-row
+        type="flex"
+        justify="center">
+        <el-col :span="12">
+          <el-table
+            :data="songList"
+            border
+            style="width: 100%"
+            @sort-change="sortTable"
+            v-loading="loading">
+            <el-table-column label="歌曲编号" prop="id" sortable="custom"></el-table-column>
+            <el-table-column label="歌名" prop="name" sortable="custom"></el-table-column>
+            <el-table-column label="歌手" prop="artist" sortable="custom"></el-table-column>
+            <el-table-column label="语言" prop="language" sortable="custom"></el-table-column>
+          </el-table>
+        </el-col>
+      </el-row>
+
+      <el-row
+        type="flex"
+        justify="center">
+        <el-col :offset="6">
+          <!--分页控件-->
+          <el-pagination
+            @size-change="handleSizeChange"
+            @current-change="handleCurrentChange"
+            :current-page="queryInfo.pageNum"
+            :page-sizes="[10, 15, 20]"
+            :page-size="queryInfo.pageSize"
+            layout="total, sizes, prev, pager, next, jumper"
+            :total="total">
+          </el-pagination>
+        </el-col>
+      </el-row>
     </el-card>
 
     <!--登陆对话框-->
