@@ -131,6 +131,9 @@ export default {
     // 获取歌单列表
     getSongList () {
       this.loading = true
+
+      this.queryInfo.nameOrArtist = this.queryInfo.nameOrArtist.trim()
+
       publicSongList(this.queryInfo).then(res => {
         console.log(res)
 
