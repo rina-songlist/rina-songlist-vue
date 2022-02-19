@@ -91,7 +91,9 @@ export default {
         pageSize: 10,
         pageNum: 1,
         nameOrArtist: '',
-        ids: []
+        ids: [],
+        orderBy: 'id',
+        withDesc: false
       },
       // 当前查询结果的总数据条数
       total: 0,
@@ -164,8 +166,13 @@ export default {
     },
     // 歌曲排序
     sortTable (column) {
-      // TODO 完善后端排序请求
-      console.log(column)
+      this.queryInfo.orderBy = column.prop
+      if (column.order === 'ascending' || column.order === null) {
+        this.queryInfo.withDesc = false
+      } else if (column.order === 'descending') {
+        this.queryInfo.withDesc = true
+      }
+      this.getSongList()
     },
     // 随机一首歌
     randomOneSong() {
