@@ -35,6 +35,7 @@ axios.interceptors.request.use(config => {
   }
   return config
 }, error => {
+  this.$message.error('无法连接服务器！')
   return Promise.reject(error)
 })
 
@@ -45,6 +46,7 @@ axios.interceptors.response.use(response => {
   }
   return response.data
 }, error => {
+  this.$message.error('无法连接服务器！')
   return Promise.reject(error)
 })
 
