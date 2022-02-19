@@ -11,8 +11,8 @@
       </el-menu-item>
       <!--TODO 点击跳转至普通用户页-->
       <el-menu-item index="2">林莉奈歌单</el-menu-item>
-      <el-menu-item index="3"><a href="https://space.bilibili.com/1243266187">b站主页</a></el-menu-item>
-      <el-menu-item index="4"><a href="https://live.bilibili.com/22742508?spm_id_from=333.999.0.0">直播间</a></el-menu-item>
+      <el-menu-item index="3"><a href="https://space.bilibili.com/1243266187" target="_blank">b站主页</a></el-menu-item>
+      <el-menu-item index="4"><a href="https://live.bilibili.com/22742508?spm_id_from=333.999.0.0" target="_blank">直播间</a></el-menu-item>
       <!--当前用户信息和状态（登陆后显示）-->
       <el-submenu index="5" v-if="loginState" class="submenu">
         <template slot="title">{{ userName }}</template>
