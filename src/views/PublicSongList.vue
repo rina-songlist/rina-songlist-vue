@@ -20,6 +20,7 @@
           <el-table
             :data="songList"
             border
+            stripe
             style="width: 100%"
             @sort-change="sortTable"
             v-loading="loading">
