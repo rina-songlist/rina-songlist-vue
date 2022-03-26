@@ -7,7 +7,7 @@
       text-color="#ffffff">
       <!--主要网页信息和链接-->
       <el-menu-item index="1" @click="openLoginMenu">
-        <img src="../assets/pictures/rina.jpg" class="rina-logo"  alt="网页出错了请重新加载_(´ཀ`」 ∠)_"/>
+        <img src="@/assets/pictures/rina.png" class="rina-logo" alt="网页出错了请重新加载_(´ཀ`」 ∠)_"/>
       </el-menu-item>
       <!--TODO 点击跳转至普通用户页-->
       <el-menu-item index="2">林莉奈歌单</el-menu-item>
