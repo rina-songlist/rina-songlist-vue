@@ -19,7 +19,8 @@ import {
   Loading,
   Dialog,
   Form,
-  FormItem
+  FormItem,
+  MenuItemGroup
 } from 'element-ui'
 
 Vue.use(Button)
@@ -41,4 +42,5 @@ Vue.use(Loading)
 Vue.use(Dialog)
 Vue.use(Form)
 Vue.use(FormItem)
+Vue.use(MenuItemGroup)
 Vue.prototype.$message = Message
