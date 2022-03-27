@@ -6,7 +6,7 @@ import './plugins/element.js'
 import axios from 'axios'
 import VueAxios from 'vue-axios'
 
-import './assets/css/global.css'
+import '@/assets/css/global.css'
 
 
 Vue.config.productionTip = false
