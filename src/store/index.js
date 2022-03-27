@@ -7,19 +7,20 @@ export default new Vuex.Store({
   state: {
     // 登陆状态 true：已登陆，false：未登陆
     loginState: false,
-    token: '',
-    // 控制是否打开登陆窗口
-    loginDialogVisible: false
+    // 是否展示登陆窗口
+    loginDialogVisible: false,
+    // 当前用户
+    currentUser: ''
   },
   mutations: {
     setLoginState(state, newState) {
       state.loginState = newState
     },
-    setToken(state, newToken) {
-      state.token = newToken
-    },
     setLoginDialogVisible(state, newState) {
       state.loginDialogVisible = newState
+    },
+    setCurrentUser(state, newUser) {
+      state.currentUser = newUser
     }
   },
   actions: {
