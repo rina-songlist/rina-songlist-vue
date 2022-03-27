@@ -52,6 +52,9 @@ export default {
 }
 </script>
 
-<style scoped>
-
+<style lang="less" scoped>
+.el-menu {
+  border-right: none;
+  height: 100%;
+}
 </style>
