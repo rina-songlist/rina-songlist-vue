@@ -1,20 +1,18 @@
 <template>
-  <div>
-    <el-container class="main-container">
-      <el-aside width="200px" v-if="loginState">
-        <leftnav></leftnav>
-      </el-aside>
-      <el-container>
-        <el-header>
-          <navcon></navcon>
-        </el-header>
-        <el-main>
-          <!--路由占位符-->
-          <router-view></router-view>
-        </el-main>
-      </el-container>
+  <el-container class="main-container">
+    <el-aside width="200px" v-if="loginState">
+      <leftnav></leftnav>
+    </el-aside>
+    <el-container>
+      <el-header>
+        <navcon></navcon>
+      </el-header>
+      <el-main>
+        <!--路由占位符-->
+        <router-view></router-view>
+      </el-main>
     </el-container>
-  </div>
+  </el-container>
 </template>
 
 <script>
@@ -37,6 +35,10 @@ export default {
     ...mapState(['loginState'])
   },
   created () {
+    if (!this.loginState) {
+      const state = window.sessionStorage.getItem('state')
+      this.setLoginState(state)
+    }
   },
   methods: {
     ...mapMutations(['setLoginState'])
@@ -53,12 +55,6 @@ export default {
 <style lang="less" scoped>
 .main-container {
   height: 100%;
-}
-.el-aside {
-  .el-menu {
-    border-right: none;
-    height: 100%;
-  }
 }
 .el-header {
   padding: 0;
