@@ -39,13 +39,12 @@ export default {
   created () {
   },
   methods: {
-    ...mapMutations(['setLoginState', 'setToken'])
+    ...mapMutations(['setLoginState'])
   },
   beforeMount () {
     // 在进入普通用户界面前将登陆状态改为未登陆
     if (this.$route.path === '/public') {
       this.setLoginState(false)
-      this.setToken('')
     }
   }
 }
@@ -54,5 +53,14 @@ export default {
 <style lang="less" scoped>
 .main-container {
   height: 100%;
+}
+.el-aside {
+  .el-menu {
+    border-right: none;
+    height: 100%;
+  }
+}
+.el-header {
+  padding: 0;
 }
 </style>
