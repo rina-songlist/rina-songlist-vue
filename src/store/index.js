@@ -15,12 +15,14 @@ export default new Vuex.Store({
   mutations: {
     setLoginState(state, newState) {
       state.loginState = newState
+      window.sessionStorage.setItem('state', newState)
     },
     setLoginDialogVisible(state, newState) {
       state.loginDialogVisible = newState
     },
     setCurrentUser(state, newUser) {
       state.currentUser = newUser
+      window.sessionStorage.setItem('user', newUser)
     }
   },
   actions: {
