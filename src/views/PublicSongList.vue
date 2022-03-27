@@ -65,7 +65,7 @@
           <el-input v-model="loginForm.username"></el-input>
         </el-form-item>
         <el-form-item label="密码" prop="password">
-          <el-input type="password" v-model="loginForm.password"></el-input>
+          <el-input type="password" v-model="loginForm.password" @keydown.enter.native="login"></el-input>
         </el-form-item>
       </el-form>
       <span slot="footer">
@@ -78,6 +78,7 @@
 
 <script>
 import { publicSongList } from '@/api/songList'
+import { login } from '@/api/user'
 import { mapMutations } from 'vuex'
 
 export default {
@@ -130,7 +131,7 @@ export default {
     this.getSongList()
   },
   methods: {
-    ...mapMutations(['setLoginDialogVisible']),
+    ...mapMutations(['setLoginDialogVisible', 'setLoginState', 'setCurrentUser']),
     // 获取歌单列表
     getSongList () {
       this.loading = true
@@ -138,18 +139,18 @@ export default {
       this.queryInfo.nameOrArtist = this.queryInfo.nameOrArtist.trim()
 
       publicSongList(this.queryInfo).then(res => {
-        console.log(res)
+        console.log(res.data)
 
         this.loading = false
-        if (res.code !== 200) {
+        if (res.data.code !== 200) {
           this.$message.error('歌单获取失败！')
         } else {
           this.$message.success('歌单获取成功！')
-          this.songList = res.data
-          this.total = res.total
+          this.songList = res.data.data
+          this.total = res.data.total
 
           if (this.totalSongNum === 0) {
-            this.totalSongNum = res.total
+            this.totalSongNum = res.data.total
           }
         }
       })
@@ -194,13 +195,21 @@ export default {
     // 登陆按钮的函数
     login() {
       this.$refs.loginFormRef.validate(valid => {
-        console.log(valid)
         if (!valid) {
           return
         }
 
-        // TODO 登陆事件
-        this.setLoginDialogVisible(false)
+        login(this.loginForm).then(res => {
+          if (res.data.code !== 200) {
+            this.$message.error('登陆失败！')
+          }
+
+          this.$message.success('登陆成功！')
+          this.setLoginState(true)
+          this.setCurrentUser(this.loginForm.username)
+          this.setLoginDialogVisible(false)
+          this.$router.push('/show/song-list')
+        })
       })
     }
   }
