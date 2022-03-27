@@ -1,6 +1,8 @@
 import axios from 'axios'
-import store from '@/store'
 import qs from 'qs'
+import Vue from 'vue'
+
+var vm = new Vue()
 
 switch (process.env.NODE_ENV) {
   case 'production':
@@ -18,12 +20,12 @@ switch (process.env.NODE_ENV) {
  * 设置是否允许跨域携带身份验证（即cookies）
  */
 axios.defaults.timeout = 10000
-// axios.defaults.withCredentials = true
+axios.defaults.withCredentials = true
 
 axios.interceptors.request.use(config => {
   // token相关
-  const token = store.state.token
-  if (token !== '') {
+  const token = window.localStorage.getItem('token')
+  if (token !== null && token !== '' && token !== undefined) {
     config.headers.Authorization = token
   }
 
@@ -35,18 +37,19 @@ axios.interceptors.request.use(config => {
   }
   return config
 }, error => {
-  this.$message.error('无法连接服务器！')
+  vm.$message.error('无法连接服务器！')
   return Promise.reject(error)
 })
 
 axios.interceptors.response.use(response => {
-  const token = response.headers.Authorization
-  if (token !== null && token !== '' && token !== 'undefined') {
-    store.commit('setToken', token)
+  const token = response.headers.authorization
+  console.log(token)
+  if (token !== null && token !== '' && token !== undefined) {
+    window.localStorage.setItem('token', token)
   }
-  return response.data
+  return response
 }, error => {
-  this.$message.error('无法连接服务器！')
+  vm.$message.error('无法连接服务器！')
   return Promise.reject(error)
 })
 
