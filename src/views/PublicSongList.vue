@@ -143,7 +143,7 @@ export default {
 
         this.loading = false
         if (res.data.code !== 200) {
-          this.$message.error('歌单获取失败！')
+          return this.$message.error('歌单获取失败！')
         } else {
           this.$message.success('歌单获取成功！')
           this.songList = res.data.data
@@ -201,10 +201,11 @@ export default {
 
         login(this.loginForm).then(res => {
           if (res.data.code !== 200) {
-            this.$message.error('登陆失败！')
+            return this.$message.error('登陆失败！')
           }
 
           this.$message.success('登陆成功！')
+          this.$refs.loginFormRef.resetFields()
           this.setLoginState(true)
           this.setCurrentUser(this.loginForm.username)
           this.setLoginDialogVisible(false)
