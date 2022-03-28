@@ -20,7 +20,8 @@ import {
   Dialog,
   Form,
   FormItem,
-  MenuItemGroup
+  MenuItemGroup,
+  MessageBox
 } from 'element-ui'
 
 Vue.use(Button)
@@ -44,3 +45,4 @@ Vue.use(Form)
 Vue.use(FormItem)
 Vue.use(MenuItemGroup)
 Vue.prototype.$message = Message
+Vue.prototype.$confirm = MessageBox.confirm
