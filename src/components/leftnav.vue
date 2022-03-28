@@ -42,7 +42,7 @@ export default {
     getTreeMenu() {
       listMenu({ type: 'tree' }).then(res => {
         if (res.data.code !== 200) {
-          this.$message.error('菜单列表获取失败！')
+          return this.$message.error('菜单列表获取失败！')
         }
 
         this.menuList = res.data.data
