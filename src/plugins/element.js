@@ -25,7 +25,8 @@ import {
   Switch,
   Tooltip,
   Select,
-  Option
+  Option,
+  Tree
 } from 'element-ui'
 
 Vue.use(Button)
@@ -52,5 +53,6 @@ Vue.use(Switch)
 Vue.use(Tooltip)
 Vue.use(Select)
 Vue.use(Option)
+Vue.use(Tree)
 Vue.prototype.$message = Message
 Vue.prototype.$confirm = MessageBox.confirm
