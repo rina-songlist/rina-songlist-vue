@@ -1,7 +1,6 @@
 import axios from 'axios'
 import qs from 'qs'
 import Vue from 'vue'
-import store from '@/store'
 
 var vm = new Vue()
 
@@ -47,15 +46,6 @@ axios.interceptors.response.use(response => {
   console.log(token)
   if (token !== null && token !== '' && token !== undefined) {
     window.localStorage.setItem('token', token)
-  }
-  if (response.data.code === 401) {
-    vm.$message.error('用户未登陆，请重新登陆！')
-    store.commit('setLoginState', false)
-    store.commit('setCurrentUser', '')
-    return vm.$router.push('/public')
-  }
-  if (response.status !== 200) {
-    vm.$message.error('服务器错误，请重试！')
   }
   return response
 }, error => {
