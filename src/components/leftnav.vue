@@ -3,12 +3,12 @@
     background-color="#7779c7"
     text-color="#ffffff"
     active-text-color="#FFCC01"
-    default-active="/show/song-list"
+    :default-active="currentPath"
     unique-opened
     menu-trigger="click"
     router>
     <!--一级菜单-->
-    <el-submenu :index="item.url + ''" v-for="item in menuList" :key="item.id">
+    <el-submenu :index="item.id + ''" v-for="item in menuList" :key="item.id">
       <template slot="title">
         <i :class="item.icon"></i>
         <span>{{item.name}}</span>
@@ -32,11 +32,13 @@ export default {
   data () {
     return {
       // 所有菜单
-      menuList: []
+      menuList: [],
+      currentPath: ''
     }
   },
   created () {
     this.getTreeMenu()
+    this.currentPath = this.$route.path
   },
   methods: {
     getTreeMenu() {

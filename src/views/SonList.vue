@@ -1,7 +1,7 @@
 <template>
   <div>
     <el-card>
-      <!--搜索与随机-->
+      <!--搜索与添加-->
       <el-row :gutter="20">
         <el-col :span="8">
           <el-input placeholder="搜索歌曲名或歌手" v-model="queryInfo.nameOrArtist" @keydown.enter.native="getSongList">
@@ -63,7 +63,7 @@
         </el-form-item>
       </el-form>
       <span slot="footer" class="dialog-footer">
-        <el-button @click="addDialogVisible = false">取 消</el-button>
+        <el-button @click="addDialogClosed">取 消</el-button>
         <el-button type="primary" @click="insertSong">确 定</el-button>
       </span>
     </el-dialog>
@@ -86,7 +86,7 @@
         </el-form-item>
       </el-form>
       <span slot="footer" class="dialog-footer">
-        <el-button @click="addDialogVisible = false">取 消</el-button>
+        <el-button @click="editDialogClosed">取 消</el-button>
         <el-button type="primary" @click="editSong">确 定</el-button>
       </span>
     </el-dialog>
@@ -126,9 +126,9 @@ export default {
       },
       // 校验规则
       songRules: {
-        name: [{ required: true, message: '请输入歌曲名', trigger: 'blur' }],
-        artist: [{ required: true, message: '请输入歌曲名', trigger: 'blur' }],
-        language: [{ required: true, message: '请输入歌曲名', trigger: 'blur' }]
+        name: [{ required: true, message: '请输入歌曲名！', trigger: 'blur' }],
+        artist: [{ required: true, message: '请输入歌曲名！', trigger: 'blur' }],
+        language: [{ required: true, message: '请输入歌曲名！', trigger: 'blur' }]
       },
       // 编辑参数
       editForm: {},
@@ -149,10 +149,10 @@ export default {
       listSongList(this.queryInfo).then(res => {
         console.log(res.data)
 
-        this.loading = false
         if (res.data.code !== 200) {
           return this.$message.error('歌单获取失败！')
         } else {
+          this.loading = false
           this.$message.success('歌单获取成功！')
           this.songList = res.data.data
           this.total = res.data.total
@@ -224,14 +224,20 @@ export default {
     },
     // 编辑歌曲的方法
     editSong() {
-      editSongList(this.editForm).then(res => {
-        if (res.data.code !== 201) {
-          return this.$message.error('添加歌曲失败！')
+      this.$refs.editFormRef.validate(valid => {
+        if (!valid) {
+          return
         }
 
-        this.$message.success('添加歌曲成功！')
-        this.editDialogClosed()
-        this.getSongList()
+        editSongList(this.editForm).then(res => {
+          if (res.data.code !== 201) {
+            return this.$message.error('添加歌曲失败！')
+          }
+
+          this.$message.success('添加歌曲成功！')
+          this.editDialogClosed()
+          this.getSongList()
+        })
       })
     },
     // 删除歌曲的方法

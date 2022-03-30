@@ -7,7 +7,7 @@ import axios from 'axios'
 import VueAxios from 'vue-axios'
 
 import '@/assets/css/global.css'
-
+import '@/assets/fonts/iconfont.css'
 
 Vue.config.productionTip = false
 Vue.use(VueAxios, axios)
