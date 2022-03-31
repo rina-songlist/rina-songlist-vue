@@ -47,6 +47,9 @@ axios.interceptors.response.use(response => {
   if (token !== null && token !== '' && token !== undefined) {
     window.localStorage.setItem('token', token)
   }
+  if (response.status !== 200) {
+    vm.$message.error('服务器错误，请重试！')
+  }
   return response
 }, error => {
   vm.$message.error('无法连接服务器！')
