@@ -79,7 +79,7 @@
 <script>
 import { publicSongList } from '@/api/songList'
 import { login } from '@/api/user'
-import { mapMutations } from 'vuex'
+import { mapMutations, mapState } from 'vuex'
 
 export default {
   data () {
@@ -125,7 +125,8 @@ export default {
       set(msg) {
         console.log(msg)
       }
-    }
+    },
+    ...mapState(['currentUser'])
   },
   created () {
     this.getSongList()
@@ -199,6 +200,7 @@ export default {
           return
         }
 
+        const username = this.loginForm.username
         login(this.loginForm).then(res => {
           if (res.data.code !== 200) {
             return this.$message.error('登陆失败！')
@@ -207,9 +209,10 @@ export default {
           this.$message.success('登陆成功！')
           this.$refs.loginFormRef.resetFields()
           this.setLoginState(true)
-          this.setCurrentUser(this.loginForm.username)
+          this.setCurrentUser(username)
           this.setLoginDialogVisible(false)
           this.$router.push('/show/song-list')
+          this.loginDialogClosed()
         })
       })
     }
