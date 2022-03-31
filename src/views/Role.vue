@@ -40,7 +40,7 @@
       width="50%"
       :before-close="addDialogClosed">
       <el-form :model="addForm" :rules="rules" ref="addFormRef" label-width="100px">
-        <el-form-item label="用户名" prop="role">
+        <el-form-item label="权限名" prop="role">
           <el-input v-model="addForm.role" @keydown.enter.native="addRole"></el-input>
         </el-form-item>
       </el-form>
@@ -57,7 +57,7 @@
       width="50%"
       :before-close="editDialogClosed">
       <el-form :model="editForm" :rules="rules" ref="editFormRef" label-width="100px">
-        <el-form-item label="用户名" prop="role">
+        <el-form-item label="权限名" prop="role">
           <el-input v-model="editForm.role" @keydown.enter.native="editRole"></el-input>
         </el-form-item>
       </el-form>
