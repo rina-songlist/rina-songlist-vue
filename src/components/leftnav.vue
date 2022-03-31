@@ -27,6 +27,7 @@
 
 <script>
 import { listMenu } from '@/api/menu'
+import { mapMutations } from 'vuex'
 
 export default {
   data () {
@@ -41,8 +42,19 @@ export default {
     this.currentPath = this.$route.path
   },
   methods: {
+    ...mapMutations(['setLoginDialogVisible', 'setLoginState']),
     getTreeMenu() {
       listMenu({ type: 'tree' }).then(res => {
+        if (res.data.code === 401) {
+          this.$message.error('用户未登陆，请重新登陆！')
+          if (this.$route.path !== '/public') {
+            this.$router.push('/public')
+          }
+
+          this.setLoginState(false)
+          return this.setLoginDialogVisible(true)
+        }
+
         if (res.data.code !== 200) {
           return this.$message.error('菜单列表获取失败！')
         }
