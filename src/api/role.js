@@ -1,4 +1,4 @@
-import axios from '@/utils/axiosUtilsWithToken'
+import axios from '@/PC/utils/axiosUtilsWithToken'
 
 // 获取权限列表
 export const listRole = () => { return axios.get('/private/system/role') }

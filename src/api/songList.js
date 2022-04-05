@@ -1,5 +1,5 @@
-import axios from '@/utils/axiosUtilsWithToken'
-import axios2 from '@/utils/axiosUtilsWithoutToken'
+import axios from '@/PC/utils/axiosUtilsWithToken'
+import axios2 from '@/PC/utils/axiosUtilsWithoutToken'
 
 // 普通用户所看到的歌单信息
 export const publicSongList = (reqParams) => { return axios2.get('/song-list', { params: reqParams }) }

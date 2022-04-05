@@ -1,4 +1,4 @@
-import axios from '@/utils/axiosUtilsWithToken'
+import axios from '@/PC/utils/axiosUtilsWithToken'
 
 // 查看菜单列表
 export const listMenu = (reqParams) => { return axios.get('/private/system/menu', { params: reqParams }) }

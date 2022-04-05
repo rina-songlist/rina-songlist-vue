@@ -1,4 +1,4 @@
-import axios from '@/utils/axiosUtilsWithToken'
+import axios from '@/PC/utils/axiosUtilsWithToken'
 
 // 用户登陆
 export const login = (reqParams) => { return axios.post('/private/login', reqParams) }
