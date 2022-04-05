@@ -3,6 +3,7 @@ import App from './App.vue'
 import router from './router'
 import store from './store'
 import './plugins/element.js'
+import './plugins/vant-ui'
 import axios from 'axios'
 import VueAxios from 'vue-axios'
 
