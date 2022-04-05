@@ -1,6 +1,7 @@
 import axios from 'axios'
 import qs from 'qs'
 import Vue from 'vue'
+import router from '@/router'
 
 var vm = new Vue()
 
@@ -46,6 +47,12 @@ axios.interceptors.response.use(response => {
   console.log(token)
   if (token !== null && token !== '' && token !== undefined) {
     window.localStorage.setItem('token', token)
+  }
+  if (response.data.code === 401) {
+    if (router.currentRoute.path.search('public') === -1) {
+      router.push('/pc')
+      return vm.$message.error('用户未登陆，请重新登陆！')
+    }
   }
   if (response.status !== 200) {
     vm.$message.error('服务器错误，请重试！')
