@@ -6,6 +6,13 @@
   "description": "",
   "glyphs": [
     {
+      "icon_id": "11868243",
+      "name": "骰子",
+      "font_class": "touzi",
+      "unicode": "e600",
+      "unicode_decimal": 58880
+    },
+    {
       "icon_id": "7008883",
       "name": "accessory",
       "font_class": "accessory",
