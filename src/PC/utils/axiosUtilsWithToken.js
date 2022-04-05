@@ -6,10 +6,10 @@ var vm = new Vue()
 
 switch (process.env.NODE_ENV) {
   case 'production':
-    axios.defaults.baseURL = 'http://172.17.0.7:8888'
+    axios.defaults.baseURL = 'http://rina-songlist:8080'
     break
-  case 'test':
-    axios.defaults.baseURL = 'http://172.17.0.7:8080'
+  case 'development':
+    axios.defaults.baseURL = 'http://192.168.0.9:8080'
     break
   default:
     axios.defaults.baseURL = 'http://192.168.0.9:8080'
@@ -23,6 +23,12 @@ axios.defaults.timeout = 10000
 axios.defaults.withCredentials = true
 
 axios.interceptors.request.use(config => {
+  // token相关
+  const token = window.localStorage.getItem('token')
+  if (token !== null && token !== '' && token !== undefined) {
+    config.headers.Authorization = token
+  }
+
   // 将数组参数序列化
   if (config.method === 'get') {
     config.paramsSerializer = function(params) {
@@ -36,6 +42,11 @@ axios.interceptors.request.use(config => {
 })
 
 axios.interceptors.response.use(response => {
+  const token = response.headers.authorization
+  console.log(token)
+  if (token !== null && token !== '' && token !== undefined) {
+    window.localStorage.setItem('token', token)
+  }
   if (response.status !== 200) {
     vm.$message.error('服务器错误，请重试！')
   }
