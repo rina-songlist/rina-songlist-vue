@@ -48,8 +48,8 @@ export default {
     ...mapState(['loginState', 'currentUser'])
   },
   created () {
-    if (this.currentUser === '') {
-      const currentUser = window.sessionStorage.getItem('user')
+    const currentUser = window.sessionStorage.getItem('user')
+    if (this.currentUser === '' && currentUser !== 'null') {
       this.setCurrentUser(currentUser)
     }
   },
@@ -61,12 +61,12 @@ export default {
         if (res.data.code === 200) {
           this.setLoginState(true)
           this.setLoginDialogVisible(false)
-          if (this.$route.path !== '/show/song-list') {
-            this.$router.push('/show/song-list')
+          if (this.$route.path.search('song-list') === -1) {
+            this.$router.push('/pc/show/song-list')
           }
         } else {
-          if (this.$route.path !== '/public') {
-            this.$router.push('/public')
+          if (this.$route.path.search('public') === -1) {
+            this.$router.push('/pc/public')
           }
 
           this.setLoginState(false)
@@ -76,8 +76,8 @@ export default {
     },
     // 跳转回普通用户页面
     jumpToPublic() {
-      if (this.$route.path !== 'public') {
-        this.$router.push('/public')
+      if (this.$route.path.search('public') === -1) {
+        this.$router.push('public')
       }
     },
     // 退出登陆
@@ -90,8 +90,8 @@ export default {
       // 跳转回默认页面
       this.logoutDialogVisible = false
       this.$message.success('退出登陆成功！')
-      if (this.$route.path !== 'public') {
-        this.$router.push('/public')
+      if (this.$route.path.search('public') === -1) {
+        this.$router.push('/pc/public')
       }
     }
   }
