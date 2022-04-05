@@ -211,7 +211,7 @@ export default {
           this.setLoginState(true)
           this.setCurrentUser(username)
           this.setLoginDialogVisible(false)
-          this.$router.push('/show/song-list')
+          this.$router.push('/pc/show/song-list')
           this.loginDialogClosed()
         })
       })
