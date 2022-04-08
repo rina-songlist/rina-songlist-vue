@@ -1,13 +1,21 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
 
-import Menu from '@/PC/views/Menu'
-import PublicSongList from '@/PC/views/PublicSongList'
-import Role from '@/PC/views/Role'
-import SonList from '@/PC/views/SonList'
-import User from '@/PC/views/User'
-import PC from '@/PC/PC'
-import Mobile from '@/Mobile/Mobile'
+// import PublicSongList from '@/PC/views/PublicSongList'
+const PublicSongList = () => import(/* webpackChunkName: "public" */ '@/PC/views/PublicSongList')
+// import Mobile from '@/Mobile/Mobile'
+const Mobile = () => import(/* webpackChunkName: "public" */ '@/Mobile/Mobile')
+// import PC from '@/PC/PC'
+const PC = () => import(/* webpackChunkName: "public" */ '@/PC/PC')
+
+// import Menu from '@/PC/views/Menu'
+const Menu = () => import(/* webpackChunkName: "private" */ '@/PC/views/Menu')
+// import Role from '@/PC/views/Role'
+const Role = () => import(/* webpackChunkName: "private" */ '@/PC/views/Role')
+// import SonList from '@/PC/views/SonList'
+const SonList = () => import(/* webpackChunkName: "private" */ '@/PC/views/SonList')
+// import User from '@/PC/views/User'
+const User = () => import(/* webpackChunkName: "private" */ '@/PC/views/User')
 
 Vue.use(VueRouter)
 
@@ -58,7 +66,7 @@ const router = new VueRouter({
 })
 
 router.beforeEach((to, from, next) => {
-  if (redirectPath === '/mobile' && to.path !== '/mobile') {
+  if (redirectPath === '/mobile' && to.path.search('mobile') === -1) {
     next({ path: '/mobile' })
   } else {
     next()
@@ -71,8 +79,10 @@ router.beforeEach((to, from, next) => {
   }
 
   const token = window.localStorage.getItem('token')
-  if (token === null || token === '' || token === undefined) {
-    next('/pc')
+  if (redirectPath === '/pc' &&
+    to.path !== '/pc/public' &&
+    (token === null || token === '' || token === undefined)) {
+    next({ path: '/pc' })
   } else {
     next()
   }
