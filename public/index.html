@@ -7,7 +7,25 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <!--<link rel="icon" href="<%= BASE_URL %>favicon.ico">-->
     <link rel="icon" href="<%= BASE_URL %>logo.ico">
-    <title><%= htmlWebpackPlugin.options.title %></title>
+    <!--<title><%= htmlWebpackPlugin.options.title %></title>-->
+    <title><%= htmlWebpackPlugin.options.isProd ? '' : 'dev - ' %>rina-songlist</title>
+
+    <% if(htmlWebpackPlugin.options.isProd){ %>
+    <!--element样式-->
+    <link rel="stylesheet" href="https://unpkg.com/element-ui/lib/theme-chalk/index.css">
+    <!--vant样式-->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/vant@2.12/lib/index.css">
+
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.6.14"></script>
+    <script src="https://unpkg.com/vuex@3.6.2"></script>
+    <script src="https://unpkg.com/vue-router@2.8.0/dist/vue-router.js"></script>
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <!--<script src="https://unpkg.com/qs/dist/qs.js"></script>-->
+    <!--element组件-->
+    <script src="https://unpkg.com/element-ui/lib/index.js"></script>
+    <!--vant组件-->
+    <script src="https://cdn.jsdelivr.net/npm/vant@2.12/lib/vant.min.js"></script>
+    <% } %>
   </head>
   <body>
     <noscript>
