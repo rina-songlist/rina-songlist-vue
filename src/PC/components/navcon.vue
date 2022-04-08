@@ -77,7 +77,7 @@ export default {
     // 跳转回普通用户页面
     jumpToPublic() {
       if (this.$route.path.search('public') === -1) {
-        this.$router.push('public')
+        this.$router.push('/pc/public')
       }
     },
     // 退出登陆
