@@ -14,7 +14,11 @@
         <span>{{item.name}}</span>
       </template>
       <el-menu-item-group>
-        <el-menu-item v-for="subItem in item.children" :index="subItem.url + ''" :key="subItem.id">
+        <!--二级菜单-->
+        <el-menu-item
+          v-for="subItem in item.children"
+          :index="subItem.url + ''"
+          :key="subItem.id">
           <template slot="title">
             <i :class="subItem.icon"></i>
             <span>{{subItem.name}}</span>
@@ -33,17 +37,18 @@ export default {
   data () {
     return {
       // 所有菜单
-      menuList: [],
-      currentPath: ''
+      menuList: []
     }
   },
   computed: {
-    ...mapState(['loginState'])
+    ...mapState(['loginState']),
+    currentPath() {
+      return this.$route.path + ''
+    }
   },
   created () {
     if (this.loginState === true) {
       this.getTreeMenu()
-      this.currentPath = this.$route.path
     }
   },
   methods: {
