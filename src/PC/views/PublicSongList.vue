@@ -143,8 +143,10 @@ export default {
         console.log(res.data)
 
         this.loading = false
-        if (res.data.code !== 200) {
+        if (res.data.code !== 200 && res.data.code !== 404) {
           return this.$message.error('歌单获取失败！')
+        } else if (res.data.code === 404) {
+          return this.$message.info('歌曲不存在！')
         } else {
           this.$message.success('歌单获取成功！')
           this.songList = res.data.data
@@ -178,11 +180,13 @@ export default {
     },
     // 随机一首歌
     randomOneSong() {
+      this.queryInfo.ids = []
       this.queryInfo.ids[0] = Math.ceil(Math.random() * this.totalSongNum)
       this.getSongList()
     },
     // 随机选五首歌
     randomFiveSongs() {
+      this.queryInfo.ids = []
       for (let i = 0; i < 5; i++) {
         this.queryInfo.ids[i] = Math.ceil(Math.random() * this.totalSongNum)
       }
