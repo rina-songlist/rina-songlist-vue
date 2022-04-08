@@ -7,7 +7,7 @@ var vm = new Vue()
 
 switch (process.env.NODE_ENV) {
   case 'production':
-    axios.defaults.baseURL = 'http://rina-songlist:8080'
+    axios.defaults.baseURL = location.protocol + '//' + location.host + '/api'
     break
   case 'development':
     axios.defaults.baseURL = 'http://192.168.0.9:8080'
