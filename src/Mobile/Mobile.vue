@@ -93,7 +93,10 @@ export default {
         this.loading = false
 
         // 错误处理
-        if (res.data.code !== 200 && res.data.data.length === 0) {
+        if (res.data.code === 404) {
+          this.finished = true
+          return
+        } else if (res.data.code !== 200 && res.data.code !== 404) {
           this.error = true
         }
         res.data.data.forEach(x => this.songList.push(x))
