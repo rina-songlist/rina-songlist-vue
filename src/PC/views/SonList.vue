@@ -51,20 +51,20 @@
       :visible.sync="addDialogVisible"
       width="50%"
       :before-close="addDialogClosed">
-      <el-form ref="addFormRef" :rules="songRules" :model="addForm" label-width="70px">
+      <el-form ref="addFormRef" :rules="songRules" :model="editForm" label-width="70px">
         <el-form-item label="歌名" prop="name">
-          <el-input v-model="addForm.name"></el-input>
+          <el-input v-model="editForm.name"></el-input>
         </el-form-item>
         <el-form-item label="歌手" prop="artist">
-          <el-input v-model="addForm.artist"></el-input>
+          <el-input v-model="editForm.artist"></el-input>
         </el-form-item>
         <el-form-item label="语言" prop="language">
-          <el-input v-model="addForm.language" @keydown.enter.native="insertSong"></el-input>
+          <el-input v-model="editForm.language" @keydown.enter.native="addSong"></el-input>
         </el-form-item>
       </el-form>
       <span slot="footer" class="dialog-footer">
         <el-button @click="addDialogClosed">取 消</el-button>
-        <el-button type="primary" @click="insertSong">确 定</el-button>
+        <el-button type="primary" @click="addSong">确 定</el-button>
       </span>
     </el-dialog>
 
@@ -131,7 +131,12 @@ export default {
         language: [{ required: true, message: '请输入歌曲名！', trigger: 'blur' }]
       },
       // 编辑参数
-      editForm: {},
+      editForm: {
+        id: 0,
+        name: '',
+        artist: '',
+        language: ''
+      },
       // 是否显示编辑对话框
       editDialogVisible: false
     }
@@ -189,13 +194,13 @@ export default {
       this.addDialogVisible = false
     },
     // 添加歌曲的方法
-    insertSong() {
+    addSong() {
       this.$refs.addFormRef.validate(valid => {
         if (!valid) {
           return
         }
 
-        editSongList(this.addForm).then(res => {
+        editSongList(this.editForm).then(res => {
           if (res.data.code !== 201) {
             return this.$message.error('添加歌曲失败！')
           }
