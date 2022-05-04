@@ -37,18 +37,18 @@
       :visible.sync="addDialogVisible"
       width="50%"
       :before-close="addDialogClosed">
-      <el-form :model="addForm" :rules="rules" ref="addFormRef" label-width="100px">
+      <el-form :model="editForm" :rules="rules" ref="addFormRef" label-width="100px">
         <el-form-item label="菜单名" prop="name">
-          <el-input v-model="addForm.name"></el-input>
+          <el-input v-model="editForm.name"></el-input>
         </el-form-item>
         <el-form-item label="菜单图标" prop="icon">
-          <el-input v-model="addForm.icon"></el-input>
+          <el-input v-model="editForm.icon"></el-input>
         </el-form-item>
         <el-form-item label="菜单地址" prop="url">
-          <el-input v-model="addForm.url"></el-input>
+          <el-input v-model="editForm.url"></el-input>
         </el-form-item>
         <el-form-item label="父级菜单">
-          <el-select v-model="addForm.parentId" clearable placeholder="请选择父级菜单">
+          <el-select v-model="editForm.parentId" clearable placeholder="请选择父级菜单">
             <el-option
               v-for="item in menuList"
               :key="item.id"
@@ -57,7 +57,7 @@
           </el-select>
         </el-form-item>
         <el-form-item label="当前层级排序" prop="orderValue">
-          <el-input v-model.number="addForm.orderValue" @keydown.enter.native="addMenu"></el-input>
+          <el-input v-model.number="editForm.orderValue" @keydown.enter.native="addMenu"></el-input>
         </el-form-item>
       </el-form>
       <span slot="footer" class="dialog-footer">
@@ -113,14 +113,6 @@ export default {
       menuList: [],
       // 加载状态
       loading: false,
-      // 添加表单
-      addForm: {
-        name: '',
-        icon: '',
-        url: '',
-        parentId: '',
-        orderValue: ''
-      },
       // 校验规则
       rules: {
         name: [{ required: true, message: '请输入菜单名！', trigger: 'blur' }],
@@ -162,7 +154,7 @@ export default {
     // 关闭添加菜单的方法
     addDialogClosed() {
       this.$refs.addFormRef.resetFields()
-      this.addForm.parentId = ''
+      this.editForm.parentId = ''
       this.addDialogVisible = false
     },
     // 添加菜单的方法
@@ -172,10 +164,10 @@ export default {
           return
         }
 
-        if (this.addForm.parentId === '') {
-          this.addForm.parentId = 0
+        if (this.editForm.parentId === '') {
+          this.editForm.parentId = 0
         }
-        editMenu(this.addForm).then(res => {
+        editMenu(this.editForm).then(res => {
           if (res.data.code !== 201) {
             return this.$message.error('菜单添加失败！')
           }

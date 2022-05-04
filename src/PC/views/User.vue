@@ -48,18 +48,18 @@
       :visible.sync="addDialogVisible"
       width="50%"
       :before-close="addDialogClosed">
-      <el-form :model="addForm" :rules="addRules" ref="addFormRef" label-width="100px">
+      <el-form :model="editForm" :rules="rules" ref="addFormRef" label-width="100px">
         <el-form-item label="用户名" prop="userName">
-          <el-input v-model="addForm.userName"></el-input>
+          <el-input v-model="editForm.userName"></el-input>
         </el-form-item>
         <el-form-item label="密码" prop="password">
-          <el-input type="password" autocomplete="off" v-model="addForm.password"></el-input>
+          <el-input type="password" autocomplete="off" v-model="editForm.password"></el-input>
         </el-form-item>
         <el-form-item label="确认密码" prop="confirmPassword">
-          <el-input type="password" autocomplete="off" v-model="addForm.confirmPassword" @keydown.enter.native="addUser"></el-input>
+          <el-input type="password" autocomplete="off" v-model="editForm.confirmPassword" @keydown.enter.native="addUser"></el-input>
         </el-form-item>
         <el-form-item label="是否启用">
-          <el-switch v-model="addForm.status"
+          <el-switch v-model="editForm.status"
                      active-color="#13ce66"
                      inactive-color="#ff4949"></el-switch>
         </el-form-item>
@@ -76,7 +76,7 @@
       :visible.sync="editDialogVisible"
       width="50%"
       :before-close="editDialogClosed">
-      <el-form :model="editForm" :rules="editRules" ref="editFormRef" label-width="100px">
+      <el-form :model="editForm" :rules="rules" ref="editFormRef" label-width="100px">
         <el-form-item label="用户名" prop="userName">
           <el-input v-model="editForm.userName"></el-input>
         </el-form-item>
@@ -126,14 +126,6 @@ import { listRole } from '@/api/role'
 export default {
   name: 'User',
   data() {
-    // 验证添加确认密码的规则
-    var checkAddConfirmPassword = (rule, value, callback) => {
-      if (value === this.addForm.password) {
-        return callback()
-      }
-      callback(new Error('两次密码不一致！'))
-    }
-
     // 验证编辑确认密码的规则
     var checkEditConfirmPassword = (rule, value, callback) => {
       if (value === this.editForm.password) {
@@ -156,15 +148,6 @@ export default {
         confirmPassword: '',
         status: false
       },
-      // 添加的校验规则
-      addRules: {
-        userName: [{ required: true, message: '请输入用户名！', trigger: 'blur' }],
-        password: [{ required: true, message: '请输入密码！', trigger: 'blur' }],
-        confirmPassword: [
-          { required: true, message: '请输入密码！', trigger: 'blur' },
-          { validator: checkAddConfirmPassword, trigger: 'blur' }
-        ]
-      },
       // 是否显示编辑对话框
       editDialogVisible: false,
       // 编辑参数
@@ -176,7 +159,7 @@ export default {
         status: false
       },
       // 编辑的校验规则
-      editRules: {
+      rules: {
         userName: [{ required: true, message: '请输入用户名！', trigger: 'blur' }],
         password: [{ required: true, message: '请输入密码！', trigger: 'blur' }],
         confirmPassword: [
@@ -238,7 +221,7 @@ export default {
           return
         }
 
-        editUser(this.addForm).then(res => {
+        editUser(this.editForm).then(res => {
           if (res.data.code !== 201) {
             return this.$message.error('用户添加失败！')
           }

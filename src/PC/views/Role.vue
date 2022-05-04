@@ -39,9 +39,9 @@
       :visible.sync="addDialogVisible"
       width="50%"
       :before-close="addDialogClosed">
-      <el-form :model="addForm" :rules="rules" ref="addFormRef" label-width="100px">
+      <el-form :model="editForm" :rules="rules" ref="addFormRef" label-width="100px">
         <el-form-item label="权限名" prop="role">
-          <el-input v-model="addForm.role" @keydown.enter.native="addRole"></el-input>
+          <el-input v-model="editForm.role" @keydown.enter.native="addRole"></el-input>
         </el-form-item>
       </el-form>
       <span slot="footer" class="dialog-footer">
@@ -104,10 +104,6 @@ export default {
       loading: false,
       // 是否显示添加窗口
       addDialogVisible: false,
-      // 添加表单
-      addForm: {
-        role: ''
-      },
       // 添加（编辑）的校验规则
       rules: {
         role: [{ required: true, message: '请输入权限名！', trigger: 'blur' }]
@@ -162,7 +158,7 @@ export default {
           return
         }
 
-        editRole(this.addForm).then(res => {
+        editRole(this.editForm).then(res => {
           if (res.data.code !== 201) {
             return this.$message.error('权限添加失败！')
           }
