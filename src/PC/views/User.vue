@@ -141,13 +141,6 @@ export default {
       loading: false,
       // 是否显示添加对话框
       addDialogVisible: false,
-      // 添加参数
-      addForm: {
-        userName: '',
-        password: '',
-        confirmPassword: '',
-        status: false
-      },
       // 是否显示编辑对话框
       editDialogVisible: false,
       // 编辑参数
@@ -160,7 +153,10 @@ export default {
       },
       // 编辑的校验规则
       rules: {
-        userName: [{ required: true, message: '请输入用户名！', trigger: 'blur' }],
+        userName: [
+          { required: true, message: '请输入用户名！', trigger: 'blur' },
+          { max: 20, message: '长度不得超过 20 个字符', trigger: 'blur' }
+        ],
         password: [{ required: true, message: '请输入密码！', trigger: 'blur' }],
         confirmPassword: [
           { required: true, message: '请输入密码！', trigger: 'blur' },
@@ -183,6 +179,16 @@ export default {
   },
   created () {
     this.getUsers()
+  },
+  watch: {
+    addDialogVisible(newState, oldState) {
+      if (newState === true) {
+        this.editForm.id = 0
+        this.editForm.userName = ''
+        this.editForm.password = ''
+        this.editForm.status = false
+      }
+    }
   },
   methods: {
     getUsers() {

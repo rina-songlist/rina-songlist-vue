@@ -139,6 +139,18 @@ export default {
   created () {
     this.getMenus()
   },
+  watch: {
+    addDialogVisible(newState, oldState) {
+      if (newState === true) {
+        this.editForm.id = ''
+        this.editForm.name = ''
+        this.editForm.icon = ''
+        this.editForm.url = ''
+        this.editForm.parentId = ''
+        this.editForm.orderValue = 0
+      }
+    }
+  },
   methods: {
     getMenus() {
       this.loading = true
