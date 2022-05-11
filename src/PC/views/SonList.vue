@@ -118,17 +118,20 @@ export default {
       totalSongNum: 0,
       // 是否显示添加对话框
       addDialogVisible: false,
-      // 添加参数
-      addForm: {
-        name: '',
-        artist: '',
-        language: ''
-      },
       // 校验规则
       songRules: {
-        name: [{ required: true, message: '请输入歌曲名！', trigger: 'blur' }],
-        artist: [{ required: true, message: '请输入歌曲名！', trigger: 'blur' }],
-        language: [{ required: true, message: '请输入歌曲名！', trigger: 'blur' }]
+        name: [
+          { required: true, message: '请输入歌曲名！', trigger: 'blur' },
+          { max: 100, message: '长度不得超过 100 个字符', trigger: 'blur' }
+        ],
+        artist: [
+          { required: true, message: '请输入歌曲名！', trigger: 'blur' },
+          { max: 100, message: '长度不得超过 100 个字符', trigger: 'blur' }
+        ],
+        language: [
+          { required: true, message: '请输入歌曲名！', trigger: 'blur' },
+          { max: 5, message: '长度不得超过 5 个字符', trigger: 'blur' }
+        ]
       },
       // 编辑参数
       editForm: {
@@ -143,6 +146,16 @@ export default {
   },
   created () {
     this.getSongList()
+  },
+  watch: {
+    addDialogVisible(newState, oldState) {
+      if (newState === true) {
+        this.editForm.id = 0
+        this.editForm.name = ''
+        this.editForm.artist = ''
+        this.editForm.language = ''
+      }
+    }
   },
   methods: {
     // 获取歌单列表

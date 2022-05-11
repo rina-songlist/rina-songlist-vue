@@ -132,6 +132,14 @@ export default {
   created () {
     this.getRoles()
   },
+  watch: {
+    addDialogVisible(newState, oldState) {
+      if (newState === true) {
+        this.editForm.id = 0
+        this.editForm.role = ''
+      }
+    }
+  },
   methods: {
     getRoles() {
       this.loading = true
