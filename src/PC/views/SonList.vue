@@ -144,7 +144,7 @@ export default {
       editDialogVisible: false
     }
   },
-  created () {
+  created() {
     this.getSongList()
   },
   watch: {
@@ -159,7 +159,7 @@ export default {
   },
   methods: {
     // 获取歌单列表
-    getSongList () {
+    getSongList() {
       this.loading = true
 
       this.queryInfo.nameOrArtist = this.queryInfo.nameOrArtist.trim()
@@ -182,17 +182,17 @@ export default {
       })
     },
     // 更改页面大小的方法
-    handleSizeChange (newSize) {
+    handleSizeChange(newSize) {
       this.queryInfo.pageSize = newSize
       this.getSongList()
     },
     // 更改当前页码的方法
-    handleCurrentChange (newPage) {
+    handleCurrentChange(newPage) {
       this.queryInfo.pageNum = newPage
       this.getSongList()
     },
     // 歌曲排序
-    sortTable (column) {
+    sortTable(column) {
       this.queryInfo.orderBy = column.prop
       if (column.order === 'ascending' || column.order === null) {
         this.queryInfo.withDesc = false
