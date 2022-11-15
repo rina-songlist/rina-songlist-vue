@@ -1,5 +1,6 @@
 <div align="center">
 <img src="https://raw.githubusercontent.com/ArvinJr/TyporaPictureDatabase/main/rina%E5%A4%B4%E5%83%8F.jpg" alt="大莉头像" width=360 height=360 />
+
 # 林莉奈点歌网页前端~~暂定~~
 
 </div>
