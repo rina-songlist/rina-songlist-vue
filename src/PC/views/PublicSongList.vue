@@ -139,6 +139,9 @@ export default {
 
       this.queryInfo.nameOrArtist = this.queryInfo.nameOrArtist.trim()
 
+      // TODO 需修复为qs处理
+      this.queryInfo.ids = this.queryInfo.ids.toString()
+
       publicSongList(this.queryInfo).then(res => {
         console.log(res.data)
 
